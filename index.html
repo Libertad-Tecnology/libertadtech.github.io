@@ -24,7 +24,8 @@
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden;max-width:100%}
+main{overflow-x:hidden;overflow-x:clip}
 body{margin:0;background:var(--bg);color:var(--creme);font-family:'DM Sans',system-ui,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body.travado{overflow:hidden}
 h1,h2,h3,h4{font-family:'Outfit',system-ui,sans-serif;margin:0;line-height:1.05;letter-spacing:-.025em}
@@ -41,8 +42,8 @@ img,svg{display:block}
 
 /* ===== fundo vivo ===== */
 #fx{position:fixed;inset:0;z-index:0;pointer-events:none}
-.aurora{position:fixed;inset:-20vmax;z-index:0;pointer-events:none;filter:blur(80px);opacity:.55}
-.aurora i{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:flutua 22s var(--ease) infinite alternate}
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;overflow:hidden}
+.aurora i{position:absolute;border-radius:50%;mix-blend-mode:screen;filter:blur(80px);animation:flutua 22s var(--ease) infinite alternate}
 .aurora i:nth-child(1){width:46vmax;height:46vmax;left:8%;top:4%;background:radial-gradient(circle,#5B2BB5 0%,transparent 65%)}
 .aurora i:nth-child(2){width:40vmax;height:40vmax;right:6%;top:18%;background:radial-gradient(circle,#FF6B2C 0%,transparent 62%);opacity:.55;animation-duration:28s}
 .aurora i:nth-child(3){width:38vmax;height:38vmax;left:30%;bottom:0;background:radial-gradient(circle,#FFC857 0%,transparent 60%);opacity:.35;animation-duration:34s}
@@ -315,12 +316,13 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;
 .wa-flut .badge{position:absolute;top:-2px;right:-2px;width:20px;height:20px;border-radius:50%;background:var(--laranja2);color:#1A0B05;font-size:12px;font-weight:700;display:grid;place-items:center;border:2px solid var(--bg)}
 
 /* ===== telas (demos em tela cheia) ===== */
-.tela-demo{position:fixed;inset:0;z-index:80;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;clip-path:circle(0px at var(--ox,50%) var(--oy,50%));visibility:hidden;transition:clip-path .85s var(--ease),visibility 0s .85s}
+.tela-demo{position:fixed;inset:0;z-index:80;background:var(--bg);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;clip-path:circle(0px at var(--ox,50%) var(--oy,50%));visibility:hidden;transition:clip-path .85s var(--ease),visibility 0s .85s}
 .tela-demo.aberta{clip-path:circle(160% at var(--ox,50%) var(--oy,50%));visibility:visible;transition:clip-path .85s var(--ease),visibility 0s}
 .tela-demo .topo-demo{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;background:rgba(13,5,32,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07)}
 .voltar{display:inline-flex;align-items:center;gap:8px;padding:10px 18px 10px 12px;border-radius:999px;border:1px solid var(--linha);background:transparent;cursor:pointer;font-weight:500}
 .voltar svg{width:18px;height:18px}
 .tela-demo .corpo{max-width:1180px;margin:0 auto;padding:48px 20px 80px;display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.tela-demo .corpo > *,.app-demo,.etapa,.itens,.item .tx,.dias,.horas-g,.ops{min-width:0}
 .tela-demo .info h2{font-size:clamp(34px,4.6vw,58px);font-weight:800;letter-spacing:-.04em;margin:14px 0 18px}
 .tela-demo .info p{color:var(--texto);font-size:18px}
 .tela-demo .info ul{list-style:none;padding:0;margin:28px 0 34px;display:flex;flex-direction:column;gap:14px}
@@ -420,14 +422,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;
   .links{display:none}
   .burger{display:block}
   .nav .cta-nav{display:none}
-  .hero .wrap{grid-template-columns:1fr}
+  .hero .wrap{grid-template-columns:minmax(0,1fr)}
   .palco{min-height:auto;padding:30px 0}
   .bx,.bx.l4,.bx.l2{grid-column:span 6}
   .demos{grid-template-columns:1fr 1fr}
   .tec{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .monte{grid-template-columns:1fr}
+  .monte{grid-template-columns:minmax(0,1fr)}
   .preview{position:relative;top:0}
-  .tela-demo .corpo{grid-template-columns:1fr}
+  .tela-demo .corpo{grid-template-columns:minmax(0,1fr);gap:32px;padding:28px 16px 60px}
 }
 @media (max-width:720px){
   section{padding:88px 0}
@@ -445,6 +447,25 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;
   .bx{padding:28px;min-height:auto}
   .bx .ilus{width:150px;height:150px;opacity:.35}
   .wa-flut .bolha{display:none}
+  .hero h1{font-size:9.2vw}
+  .rotor{max-width:100%}
+  .app-demo{padding:20px;border-radius:26px;min-height:0}
+  .tela-demo .info h2{font-size:34px}
+  .tela-demo .info p{font-size:16px}
+  .tela-demo .info ul{margin:20px 0 24px}
+  .tela-demo .info .btn{width:100%;white-space:normal}
+  .rodape-app{flex-wrap:wrap}
+  .rodape-app .btn{min-width:140px;white-space:normal;padding:0 18px}
+  .horas-g{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .dia{width:60px}
+  .kpi b{font-size:26px}
+  .item{gap:10px;padding:12px}
+  .item .emo{width:46px;height:46px;font-size:16px}
+  .grafico .bars{height:120px;gap:6px}
+  .topo-demo{padding:10px 14px}
+  .aviso-demo{font-size:12px}
+  .wa-flut{right:14px;bottom:14px}
+  .wa-flut a{width:56px;height:56px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
@@ -1171,6 +1192,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;
     etapaAt = n;
     $$('.etapa', ag).forEach(function(e){ e.classList.toggle('on', +e.dataset.etapa === n); });
     $$('.passos-ind i', ag).forEach(function(i, k){ i.classList.toggle('on', k < n); });
+    if (ag.getBoundingClientRect().top < 0) ag.scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'start' });
     if (n === 4) {
       $('#resumo').innerHTML = '';
       [['Serviço', esc.servico + ' (' + esc.dur + ')'], ['Profissional', esc.prof], ['Dia', esc.dia], ['Horário', esc.hora]].forEach(function(l){
